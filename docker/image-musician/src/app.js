@@ -13,11 +13,15 @@ const instrumentSound = new Map([
 
 
 function Musician(instrument, delay) {
+  console.log(instrument);
   this.sound = instrumentSound.get(instrument);
+  console.log(this.sound);
 
   Musician.prototype.update = () => {
     s.send(this.sound, 0, this.sound.length,
-      protocol.PROTOCOL_PORT, protocol.PROTOCOL_MULTICAST_ADDRESS);
+      protocol.PROTOCOL_PORT, protocol.PROTOCOL_MULTICAST_ADDRESS, (err, bytes) => {
+          console.log("Sending sound: " + this.sound + " via port " + s.address().port);
+      });
   };
 
   setInterval(this.update.bind(this), typeof delay !== 'undefined' ? delay : 1000);
@@ -25,4 +29,4 @@ function Musician(instrument, delay) {
 
 const instrument = process.argv[2];
 
-Musician(instrument);
+const m = new Musician(instrument);

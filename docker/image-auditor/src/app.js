@@ -25,20 +25,20 @@ function hearSomething(sound, source) {
   const now = moment();
 
   if (activities.has(source.address)) {
-    activities.get(source.address)[1] = now.unix();
+    activities.get(source.address)[1] = now;
   } else {
     activities.set(source.address,
-      [new Musician(uuidv4(), sound.toString(), now.toISOString()), now.unix()]);
+      [new Musician(uuidv4(), sound.toString(), now.toISOString()), now]);
   }
 }
 
 function getReport(socket) {
   const res = [];
-  activities.forEach((activity) => {
-    if (moment().unix() - activity[1][1] > 5) {
-      activities.delete(activity[0]);
+  activities.forEach((activity, key) => {
+    if (moment().diff(activity[1], 'seconds') >= 5) {
+      activities.delete(key);
     } else {
-      res.push(activity[1][0]);
+      res.push(activity[0]);
     }
   });
 
