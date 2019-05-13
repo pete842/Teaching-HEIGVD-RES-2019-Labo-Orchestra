@@ -4,12 +4,18 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "run": "node app.js piano",
+    "run": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Pierre Kohler",
   "license": "ISC",
   "dependencies": {
     "dgram": "^1.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.2"
   }
 }
